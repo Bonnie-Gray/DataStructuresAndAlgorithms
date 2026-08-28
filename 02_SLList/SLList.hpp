@@ -1,0 +1,23 @@
+#ifndef SLLIST_HPP
+#define SLLIST_HPP
+
+#include "SLLNode.hpp"
+
+class SLList {
+public:
+    // No-arg constructor
+    SLList();
+
+    unsigned    size() const;          // Return the size of the list
+    bool        empty() const;         // Return true if list is empty
+    void        push_front(int val);   // Insert the node at the beginning
+    void        push_back(int val);    // Insert the node at the end
+    void        print() const;         // prints the list
+
+private:
+    SLLNode* head; // First node in the linked list
+    unsigned list_size; // The number of nodes in the linked list
+};
+
+
+#endif
