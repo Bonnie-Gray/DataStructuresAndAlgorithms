@@ -1,5 +1,6 @@
 #include "SLList.hpp"
 #include <iostream>
+#include <stdexcept>
 
 SLList::SLList() : head(nullptr), tail(nullptr), list_size(0) {
 
@@ -10,21 +11,17 @@ SLList::~SLList() {
 
 SLList::SLList(const SLList& other) : head(nullptr), tail(nullptr), list_size(0) {
     SLLNode* current = other.head;
-    while (current != nullptr) {
+    while (current) {
         push_back(current->data);
         current = current->next;
     }
 }
 
 SLList& SLList::operator=(const SLList& other) {
-    if (this == &other) {
-        return *this;
-    }
-
     clear();
     
     SLLNode* current = other.head;
-    while (current != nullptr) {
+    while (current) {
         push_back(current->data);
         current = current->next;
     }
@@ -108,6 +105,13 @@ void SLList::pop_front(void) {
 
 void SLList::pop_back(void) {
     if(!empty()) {
+        if(size() == 1) {
+            pop_front();
+            return;
+        }
+    }
+    
+    if(!empty()) {
         SLLNode* temp = head;
         while (temp->next != tail) {
             temp = temp->next;
@@ -118,6 +122,7 @@ void SLList::pop_back(void) {
         
     }
     list_size--;
+
     if (empty()) {
         tail = head;
     }
@@ -128,4 +133,17 @@ void SLList::clear(void){
     while (!empty()) {
         pop_front();
     }
+}
+
+int& SLList::at(unsigned index) {
+    if (index >= size()) {
+        throw std::logic_error("at incorrect index");
+    }
+
+    SLLNode* cur = head;
+    for(int i = 0; i < index; i++){
+        cur = cur->next;
+    }
+
+    return cur->data;
 }

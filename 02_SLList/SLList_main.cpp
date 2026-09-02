@@ -11,18 +11,22 @@ int main(void) {
     list.push_back(25);
     list.push_back(35);
     list.push_back(45);
+
+    list.print();
+    list_copy.print();
+
+    list_copy = list;
     list.pop_front();
     list.pop_back();
 
     list.print();
     list_copy.print();
 
-    list_copy = list;
-
-    list.print();
-    list_copy.print();
+    std::cout << list.at(4) << std::endl;
+    list_copy.at(8);
 
     std::cout << list.size() << std::endl;
+    std::cout << list_copy.size() << std::endl;
 
     return 0;
 }
