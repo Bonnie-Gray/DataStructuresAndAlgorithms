@@ -16,12 +16,12 @@ public:
     //DLList& operator=( const DLList& other);
 
     //unsigned    size() const;          // Return the size of the list
-    //bool        empty() const;         // Return true if list is empty
+    bool        empty() const;         // Return true if list is empty
     void        push_front(const T& val);   // Insert the node at the beginning
-    //void        push_back(int val);    // Insert the node at the end
+    void        push_back(const T& val);    // Insert the node at the end
     void        print() const;         // prints the list
 
-    //void        pop_front(void);       // Remove the first node from the list
+    void        pop_front(void);       // Remove the first node from the list
     //void        pop_back(void);
 
     //void        clear(void);
