@@ -52,11 +52,28 @@ void DLList<T>::pop_front() {
 
 }
 
+template<typename T>
+void DLList<T>::pop_back() {
+        if (!empty()) {
+        DLLNode<T>* old_tail = tail->prev;
+        tail->prev = old_tail->prev;
+        tail->prev->next = tail;
+        
+        list_size--;
+
+        delete old_tail;
+
+    }
+}
+
 template <typename T>
 void DLList<T>::print() const {
     DLLNode<T>* cur = head->next;
     while(cur != tail){
         std::cout << cur->data;
+        if (cur->next != tail) {
+            std::cout << "->";
+        }
         cur = cur->next;
     }
     std::cout << std::endl;

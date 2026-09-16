@@ -1,0 +1,67 @@
+#include "QueueArray.hpp"
+#include <iostream>
+#include <stdexcept>
+
+template<typename T, int size>
+QueueArray<T, size>::QueueArray() {
+    front_index = back_index = queue_size = 0;
+}
+
+template<typename T, int size>
+bool QueueArray<T, size>::empty() const {
+    return queue_size == 0;
+}
+
+template<typename T, int size>
+bool QueueArray<T, size>::full() const {
+    return queue_size == size;
+}
+
+template<typename T, int size>
+void QueueArray<T, size>::print() const{
+    std::cout << "[ ";
+    int i = front_index;
+    while (i != back_index) {
+        std::cout << data[i] << " ";
+        i = (i + 1) % size;   // Go to the next element
+    }
+    std::cout << "]\n";
+}
+
+template<typename T, int size>
+void QueueArray<T, size>:: enqueue(const T& val) {
+    if (!full()) {
+        data[back_index] = val;
+        back_index = (back_index + 1) % size;
+        queue_size ++;
+    }
+
+}
+
+template<typename T, int size>
+const T& QueueArray<T, size>::dequeue() {
+    if(empty()) {
+       throw std::out_of_range("dequeue: Empty queue");
+    }
+    int old_front = front_index;
+    front_index = (front_index + 1) % size;
+    queue_size--;
+    return data[old_front];
+}
+
+template<typename T, int size>
+const T& QueueArray<T, size>::front() {
+    return data[front_index];
+}
+
+template<typename T, int size>
+void QueueArray<T, size>::clear() {
+    while (!empty()) {
+        dequeue();
+    }
+}
+
+template<typename T, int size>
+void QueueArray<T, size>::size() {
+    return size;
+}
