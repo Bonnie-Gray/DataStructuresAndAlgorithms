@@ -103,3 +103,25 @@ void HashMap<T>::remove(int key) {
     data[index] = HashNode<T>::makeDeleted();
     size--;
 }
+
+template <typename T>
+void HashMap<T>::update(int key, const T& value) {
+    int index = searchIndex(key);
+
+    if (index == -1) {
+        std::cout << "update: no such key" << std::endl;
+        return;
+    }
+    HashMap<T>::remove(key);
+    HashMap<T>::insert(key, value);
+    
+}
+
+template <typename T>
+bool HashMap<T>::contains(int key) {
+    int index = searchIndex(key);
+    if (index == -1) {
+        std::cout << "contains: no such key" << std::endl;
+    }
+    return index;
+}

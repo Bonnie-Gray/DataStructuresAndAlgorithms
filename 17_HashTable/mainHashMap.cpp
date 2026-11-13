@@ -44,6 +44,11 @@ int main(void) {
     map.insert(15, "abc");
     map.print();
 
+    map.update(22, "d");
+    map.contains(8);
+    map.contains(9);
+    map.print();
+
     return 0;
     
 }
