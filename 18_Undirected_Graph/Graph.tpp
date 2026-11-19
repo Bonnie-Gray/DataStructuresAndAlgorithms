@@ -129,16 +129,88 @@ void Graph<T>::DFS(const T& start) const {
     }
 
     std::vector<bool> visited(vertices.size(), false);
-    DSFExplore(index, visited);
+    DFSExplore(start_index, visited, true);
 }
 
 template <typename T>
-void Graph<T>::DFSExplore(int index, std::vector<bool>& visited) const {
+void Graph<T>::DFSExplore(int index, std::vector<bool>& visited, bool print) const {
     // Mark current index as visited
     visited[index] = true;
+
+    if(print) {
     std::cout << vertices[index] << " ";
+    }
 
     //Go through neighbors
     // If not visited call DFSExplore for that vertex
+    for (int neighbor : adjacency_list[index]) {
+        if (!visited[neighbor]) {
+            DFSExplore(neighbor, visited, print);
+        }
+    }
+}
 
+template <typename T>
+bool Graph<T>::isConnected() const {
+    //Empty graph
+    if (vertices.empty()) {
+        return true;
+    }
+
+    std::vector<bool> visited(vertices.size(), false);
+
+    // Perform DSF
+    DFSExplore(0, visited, false);
+
+    for (bool v : visited) {
+        if(!v) {
+            return false;
+        }
+    }
+    return true;
+}
+
+template <typename T>
+int Graph<T>::shortestPath(const T& start, const T& end) const {
+    int start_index = searchVertexIndex(start);
+    int end_index = searchVertexIndex(end);
+
+    if (start_index == -1 || end_index == -1) {
+        std::cout << "shortestPath: incorrect start vertex\n";
+    }
+    std::cout << "ShortestPath: ";
+
+    if(start == end) {
+        return -1;
+    }
+    //Create a queue and the vector of discovered vertices
+    std::queue<int> q;
+    std::vector<int> distances(vertices.size(), -1);
+
+    // Add the start vertex into the queue
+    q.push(start_index);
+    // Mark start index discovered
+    distances[start_index] = 0;
+
+    while (!q.empty()) {
+        //get the front value from the queue
+        int current_index = q.front();
+        q.pop();
+
+        std::cout << vertices[current_index] << " ";
+
+        //discover neighbors and add not discovered in the queue
+        for (int neighbor : adjacency_list[current_index]) {
+            if (!distances[neighbor] == -1) {
+                distances[neighbor] = distances[current_index] + 1;
+                q.push(neighbor);
+
+                if (neighbor == end_index) {
+                    return distances[neighbor];
+                }
+            }
+        }
+    }
+
+    return -1;
 }

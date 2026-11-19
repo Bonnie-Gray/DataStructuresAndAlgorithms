@@ -20,6 +20,17 @@ int main(void) {
 
     friends.print();
     friends.BFS("Monica");
+    friends.DFS("Monica");
+
+    std::cout << "isConnected: " << friends.isConnected() << std::endl;
+
+    friends.insertEdge ("Rachel", "Chandler");
+    std::cout << "isConnected: " << friends.isConnected() << std::endl;
+
+    friends.BFS("Monica");
+    friends.DFS("Monica");
+
+    std::cout << "Ross to Chandler " << friends.shortestPath("Ross", "Chandler") << std::endl;
 
     //std::cout << friends.getDegree("Monica") << std::endl;
 
