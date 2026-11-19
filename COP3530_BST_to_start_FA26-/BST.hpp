@@ -35,6 +35,9 @@ private:
     void deleteLeaf(BTNode<T>* child, BTNode<T>* parent);
     void deleteNodeWithOneChild(BTNode<T>* child, BTNode<T>* parent);
     void deleteNodeWithTwoChildren(BTNode<T>* node);
+
+    int height(const BTNode<T>* node) const;
+    int getBalance(const BTNode<T>* node) const;
 };
 
 #include "BST.tpp"

@@ -183,6 +183,7 @@ void BST<T>::print() const {
     std::cout << "===============================\n";
     print("", root, false);    
     std::cout << "===============================\n";
+    
 }
 
 template <typename T>
@@ -199,7 +200,7 @@ void BST<T>::print(const std::string& prefix, const BTNode<T>* node, bool isRigh
     }
 
     // Print the value of the node
-    std::cout << node->data << std::endl;
+    std::cout << node->data << ", " << getBalance(node) << std::endl;
 
     // Go to the next level of the tree
     print(prefix + "   ", node->right, true);
@@ -259,4 +260,22 @@ void BST<T>::deleteNodeWithTwoChildren(BTNode<T>* node) {
     else {
         deleteNodeWithOneChild(min_right, min_right_parent);
     }
+}
+
+template <typename T>
+int BST<T>::height(const BTNode<T>* node) const {
+    if(!node) {
+        return 0;
+    }
+    int left_height = 1 + height(node->left);                           //adds 1 then checks for left
+    int right_height = 1 + height(node->right);                         //adds 1 then checks for right
+    return( left_height > right_height) ? left_height : right_height;   //returns whichever height is greater
+}
+
+template <typename T>
+int BST<T>::getBalance(const BTNode<T>* node) const {
+    if (!node) {                                                        //if not node returns 0
+        return 0;
+    }
+    return height(node->left) - height(node->right);                    //height of left node - height of right node
 }
